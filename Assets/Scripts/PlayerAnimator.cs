@@ -3,6 +3,8 @@ using UnityEngine;
 public class PlayerAnimator : MonoBehaviour {
 
     private const string IS_WALKING = "IsWalking";
+    private const string IS_IDLEPICKUP = "IsIdlePickUp";
+    private const string IS_PICKWALK = "IsPickWalk";
     private Animator animator;
 
     [SerializeField] private Player player;
@@ -10,8 +12,6 @@ public class PlayerAnimator : MonoBehaviour {
     private void Awake() {
         animator = GetComponent<Animator>();
         animator.SetBool(IS_WALKING, player.IsWalking());
-
-
     }
 
     private void Update() {

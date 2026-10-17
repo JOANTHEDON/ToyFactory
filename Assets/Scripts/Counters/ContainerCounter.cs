@@ -10,8 +10,7 @@ public class ContainerCounter : BaseCounter {
     public override void Interact(Player player) {
         if (!player.HasToyObject()) {
             //Player is not carrying anything
-            Transform toyObjectTransform = Instantiate(toyObjectSO.prefab);
-            toyObjectTransform.GetComponent<ToyObject>().SetToyObjectParent(player);
+            ToyObject.SpawnToyObject(toyObjectSO, player);
 
             OnPlayerGrabbedObject?.Invoke(this, EventArgs.Empty);
         }

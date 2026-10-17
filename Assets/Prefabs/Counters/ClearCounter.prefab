@@ -151,6 +151,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1363289947622128369, guid: c4110074532bc2348ba7ad08a3a3c69b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.47
+      objectReference: {fileID: 0}
     - target: {fileID: 1485278516379416312, guid: c4110074532bc2348ba7ad08a3a3c69b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -236,8 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cffbe2b185266e4885b91ea28b54c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClearCounter
-  toyObjectSO: {fileID: 11400000, guid: ae1537551c12084449f0b5593989749a, type: 2}
   counterTopPoint: {fileID: 4008226119166000689}
+  toyObjectSO: {fileID: 11400000, guid: ae1537551c12084449f0b5593989749a, type: 2}
 --- !u!1001 &2976891676533264873
 PrefabInstance:
   m_ObjectHideFlags: 0

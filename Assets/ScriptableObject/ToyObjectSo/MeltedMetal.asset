@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d036bbae2ea168840ad50e707f4bda47, type: 3}
+  m_Name: MeltedMetal
+  m_EditorClassIdentifier: Assembly-CSharp::ToyObjectSO
+  prefab: {fileID: 4645450611838760728, guid: 6aeb6501c52d2404f93f97a442238eab, type: 3}
+  sprite: {fileID: 21300000, guid: ba16c3a4947553548bf5cc0187ec43c5, type: 3}
+  objectName: MeltedMetal

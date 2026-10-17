@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c52bf251d0744740831d433867d2f7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToyObject
-  toyObjectSO: {fileID: 0}
+  toyObjectSO: {fileID: 11400000, guid: 41d1a0de44652274e995d8ce1634e814, type: 2}
 --- !u!1001 &3101859279300739764
 PrefabInstance:
   m_ObjectHideFlags: 0

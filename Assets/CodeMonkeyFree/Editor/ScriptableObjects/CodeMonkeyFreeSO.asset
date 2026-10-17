@@ -14,47 +14,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 1.01
   subtype: kitchenchaos
-  lastShownTimestamp: 1791883621
+  lastShownTimestamp: 1792211510
   lastUpdateResponse:
     version: 1.01
     versionUrl: https://unitycodemonkey.com
-  checkedLastUpdateTimestamp: 1791883621
+  checkedLastUpdateTimestamp: 1792211510
   lastQOTDResponse:
-    questionId: 352
-    questionText: 'What is the position of the transform after running this code?
+    questionId: 353
+    questionText: 'Does this variable get reset when you load a different Scene?
 
-      <p>Vector3
-      targetPosition = new Vector3(10, 0, 0);</p>
-
-      <p>transform.position =
-      targetPosition;</p>
-
-      <p>targetPosition.x = 20;</p>'
-    answerA: (10, 0, 0)
-    answerB: (20, 0, 0)
-    answerC: Unknown
+      <p>private
+      static int score;</p>'
+    answerA: Yes
+    answerB: No
+    answerC: Only when loading the Main Menu
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1791883621
+  lastQotdTimestamp: 1792211510
   lastDynamicHeaderResponse:
     topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/humbleSep26Synty.png
     topText: AWESOME Synty Asset with THOUSANDS of great assets!
     topLink: humblebundle
     bottomText: My 10+ Years of C# Knowledge in 1 Course!
     bottomLink: csharpcourse
-  lastDynamicHeaderTimestamp: 1791883621
+  lastDynamicHeaderTimestamp: 1792211510
   websiteLatestMessage:
     text: <a href="https://cmonkey.co/freecourses">Check out all my FREE courses!
       Click here!</a>
-  websiteLatestMessageTimestamp: 1791883621
+  websiteLatestMessageTimestamp: 1792211510
   websiteLatestVideos:
     videos:
+    - youTubeId: HD1wNUTZ0_Y
+      title: Sell 25,000 copies in 24 HOURS? Steam's Update EXPLAINED!
     - youTubeId: OzldphY8pTs
       title: THIS is why your game looks TERRIBLE!
     - youTubeId: o4WEUv31JOc
       title: If your code is HORRIBLE watch this!
     - youTubeId: trDO2Io6D2M
       title: What is Unity Spark?
-    - youTubeId: iwDBrvKliV8
-      title: You should do the Dual Prototyping Strategy!
-  websiteLatestVideosTimestamp: 1791883621
+  websiteLatestVideosTimestamp: 1792211510

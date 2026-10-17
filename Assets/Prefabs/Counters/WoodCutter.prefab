@@ -251,12 +251,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3435337562043008774, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.855
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 3435337562043008774, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.666
+      value: 0.27
       objectReference: {fileID: 0}
+    - target: {fileID: 5634980575211640597, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
+      propertyPath: baseCounter
+      value: 
+      objectReference: {fileID: 1336377780648509153}
     - target: {fileID: 5634980575211640597, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
       propertyPath: 'visualGameObjectArray.Array.data[0]'
       value: 
@@ -265,6 +269,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 2fccb71c97534624894be855723d5554, type: 2}
+    - target: {fileID: 5882621671249791123, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
+      propertyPath: containerCounter
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7448759363454974943, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -283,13 +291,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8630323096400920177, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
       propertyPath: m_Name
-      value: ContainerCounterWoodCutter
+      value: WoodCutter
       objectReference: {fileID: 0}
     - target: {fileID: 8955982940951297831, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
       propertyPath: toyObjectSO
       value: 
       objectReference: {fileID: 11400000, guid: ae1537551c12084449f0b5593989749a, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8955982940951297831, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7562102468540207386, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
     - {fileID: 7015050487597258074, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
@@ -301,11 +310,39 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3105078515978823627, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4396586343780718439}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8630323096400920177, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1336377780648509153}
   m_SourcePrefab: {fileID: 100100000, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
 --- !u!4 &818011660750905724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7448759363454974943, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
+  m_PrefabInstance: {fileID: 7783740129876007587}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1999729389983835346 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8630323096400920177, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
+  m_PrefabInstance: {fileID: 7783740129876007587}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1336377780648509153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999729389983835346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 215086fc90802b247bf0343a5e11342b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WoodCounter
+  counterTopPoint: {fileID: 4875607462794173861}
+  cuttingRecipeSO:
+  - {fileID: 11400000, guid: 58af03c8d9733ee43b96f0bdfd290e24, type: 2}
+--- !u!4 &4875607462794173861 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3435337562043008774, guid: b03d74e58e827f44fba9a0a4724d8245, type: 3}
   m_PrefabInstance: {fileID: 7783740129876007587}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &5121175642065026408 stripped

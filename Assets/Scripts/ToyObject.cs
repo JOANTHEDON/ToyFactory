@@ -34,4 +34,16 @@ public class ToyObject : MonoBehaviour {
     public IToyObjectParent GetToyObjectParent() {
         return toyObjectParent;
     }
+
+    public void DestroySelf() {
+        toyObjectParent.ClearToyObject();
+        Destroy(gameObject);
+    }
+    public static ToyObject SpawnToyObject(ToyObjectSO toyObjectSO, IToyObjectParent toyObjectParent) {
+        Transform toyObjectTransform = Instantiate(toyObjectSO.prefab);
+        ToyObject toyObject = toyObjectTransform.GetComponent<ToyObject>();
+        toyObject.SetToyObjectParent(toyObjectParent);
+
+        return toyObject;
+    }
 }

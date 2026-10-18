@@ -16,6 +16,9 @@ public class ContainerCounter : BaseCounter {
         }
     }
 
+    public ToyObjectSO GetToyObjectSO() {
+        return toyObjectSO;
+    }
 }
 
 

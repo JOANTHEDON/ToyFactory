@@ -72,8 +72,23 @@ public class MoldSelectionUI : MonoBehaviour {
             }
 
             // Set icon image if available
-            Transform iconTransform = buttonTransform.Find("Icon");
-            if (iconTransform != null && iconTransform.TryGetComponent(out Image iconImage)) {
+            Image iconImage = null;
+            Transform iconTransform = buttonTransform.Find("icon") ?? buttonTransform.Find("Icon");
+            if (iconTransform != null) {
+                iconImage = iconTransform.GetComponent<Image>();
+            } else {
+                // Find an Image in children that is not the button's own targetGraphic / background
+                Image buttonImage = buttonTransform.GetComponent<Image>();
+                Image[] allChildImages = buttonTransform.GetComponentsInChildren<Image>(true);
+                foreach (Image img in allChildImages) {
+                    if (img != buttonImage) {
+                        iconImage = img;
+                        break;
+                    }
+                }
+            }
+
+            if (iconImage != null) {
                 if (outputSO.sprite != null) {
                     iconImage.sprite = outputSO.sprite;
                     iconImage.gameObject.SetActive(true);

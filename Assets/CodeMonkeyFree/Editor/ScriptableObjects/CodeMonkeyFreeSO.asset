@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 1.01
   subtype: kitchenchaos
-  lastShownTimestamp: 1792211510
+  lastShownTimestamp: 1792299359
   lastUpdateResponse:
     version: 1.01
     versionUrl: https://unitycodemonkey.com
-  checkedLastUpdateTimestamp: 1792211510
+  checkedLastUpdateTimestamp: 1792299359
   lastQOTDResponse:
     questionId: 353
     questionText: 'Does this variable get reset when you load a different Scene?
@@ -30,26 +30,26 @@ MonoBehaviour:
     answerC: Only when loading the Main Menu
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1792211510
+  lastQotdTimestamp: 1792299359
   lastDynamicHeaderResponse:
     topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/humbleSep26Synty.png
     topText: AWESOME Synty Asset with THOUSANDS of great assets!
     topLink: humblebundle
     bottomText: My 10+ Years of C# Knowledge in 1 Course!
     bottomLink: csharpcourse
-  lastDynamicHeaderTimestamp: 1792211510
+  lastDynamicHeaderTimestamp: 1792299359
   websiteLatestMessage:
     text: <a href="https://cmonkey.co/freecourses">Check out all my FREE courses!
       Click here!</a>
-  websiteLatestMessageTimestamp: 1792211510
+  websiteLatestMessageTimestamp: 1792299359
   websiteLatestVideos:
     videos:
+    - youTubeId: qjNGL4qQvrQ
+      title: TOP 10 FREE NEW Assets OCTOBER 2026!
     - youTubeId: HD1wNUTZ0_Y
       title: Sell 25,000 copies in 24 HOURS? Steam's Update EXPLAINED!
     - youTubeId: OzldphY8pTs
       title: THIS is why your game looks TERRIBLE!
     - youTubeId: o4WEUv31JOc
       title: If your code is HORRIBLE watch this!
-    - youTubeId: trDO2Io6D2M
-      title: What is Unity Spark?
-  websiteLatestVideosTimestamp: 1792211510
+  websiteLatestVideosTimestamp: 1792299359

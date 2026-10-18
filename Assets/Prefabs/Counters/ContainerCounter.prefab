@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ContainerCounterVisual
   containerCounter: {fileID: 8955982940951297831}
+  quadMeshRenderer: {fileID: 5639404447804108115}
+  iconSpriteRenderer: {fileID: 0}
 --- !u!1 &7015050487597258074
 GameObject:
   m_ObjectHideFlags: 0

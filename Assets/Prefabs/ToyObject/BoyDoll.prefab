@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ba325997a0cb46b4dba68103f320c909, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 642d2d1581ec7ff40ab9a1756b5b1c40, type: 2}
     - target: {fileID: 919132149155446097, guid: ba325997a0cb46b4dba68103f320c909, type: 3}
       propertyPath: m_Name
       value: doll
@@ -74,6 +78,10 @@ PrefabInstance:
       propertyPath: toyObjectSO
       value: 
       objectReference: {fileID: 11400000, guid: 6e82ef9faea6fb84a8f9fec0f3c0c002, type: 2}
+    - target: {fileID: -2137373572612206529, guid: 2f870e94bb3f0a24bbf93f90b0dd4719, type: 3}
+      propertyPath: originalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: afeb2df62f28e734db4484656e1ace21, type: 2}
     - target: {fileID: 1941895428941247874, guid: 2f870e94bb3f0a24bbf93f90b0dd4719, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

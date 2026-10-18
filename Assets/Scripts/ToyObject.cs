@@ -2,10 +2,44 @@ using UnityEngine;
 
 public class ToyObject : MonoBehaviour {
     [SerializeField] private ToyObjectSO toyObjectSO;
+    [SerializeField] private Material originalMaterial;
 
     private IToyObjectParent toyObjectParent;
+    private bool isColored = false;
+
     public ToyObjectSO GetToyObjectSO() {
         return toyObjectSO;
+    }
+
+    public Material GetOriginalMaterial() {
+        return originalMaterial;
+    }
+
+    public bool HasOriginalMaterial() {
+        return originalMaterial != null;
+    }
+
+    public bool IsColored() {
+        return isColored;
+    }
+
+    public void ApplyOriginalMaterial() {
+        if (originalMaterial != null) {
+            ApplyMaterial(originalMaterial);
+            isColored = true;
+        }
+    }
+
+    public void ApplyMaterial(Material material) {
+        if (material == null) return;
+        MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer meshRenderer in meshRenderers) {
+            meshRenderer.material = material;
+        }
+        SkinnedMeshRenderer[] skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+        foreach (SkinnedMeshRenderer skinnedMeshRenderer in skinnedMeshRenderers) {
+            skinnedMeshRenderer.material = material;
+        }
     }
 
     public void SetToyObjectParent(IToyObjectParent toyObjectParent) {

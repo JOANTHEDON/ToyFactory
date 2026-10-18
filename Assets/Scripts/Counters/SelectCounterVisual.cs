@@ -5,8 +5,16 @@ public class SelectCounterVisual : MonoBehaviour {
     [SerializeField] private BaseCounter baseCounter;
     [SerializeField] private GameObject[] visualGameObjectArray;
 
-    private void Start() {
+    private void Awake() {
+        if (baseCounter == null) {
+            baseCounter = GetComponentInParent<BaseCounter>();
+        }
+    }
 
+    private void Start() {
+        if (baseCounter == null) {
+            baseCounter = GetComponentInParent<BaseCounter>();
+        }
 
         Player.Instance.OnSelectedCounterChanged += Player_OnSelectedCounterChanged;
     }

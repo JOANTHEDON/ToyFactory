@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DinosourPlastic
   m_EditorClassIdentifier: Assembly-CSharp::ToyObjectSO
   prefab: {fileID: 1941895428941247874, guid: 2f870e94bb3f0a24bbf93f90b0dd4719, type: 3}
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 7be5ea93fde71d5418d9003e19d67e6f, type: 3}
   objectName: Dinosaur

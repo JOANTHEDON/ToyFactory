@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d036bbae2ea168840ad50e707f4bda47, type: 3}
+  m_Name: PlasticHolder
+  m_EditorClassIdentifier: Assembly-CSharp::ToyObjectSO
+  prefab: {fileID: 2788338603257094686, guid: 92b4e8466e7d3514784317c45d35ada0, type: 3}
+  sprite: {fileID: 0}
+  objectName: PlasticHolder

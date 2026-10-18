@@ -12,7 +12,7 @@ public class BaseCounter : MonoBehaviour, IToyObjectParent {
     public virtual void InteractAlternate(Player player) {
         //Debug.LogError("BaseCounter.InteractAlternate():");
     }
-    public Transform GetToyObjectFollowTransform() {
+    public virtual Transform GetToyObjectFollowTransform() {
         return counterTopPoint;
     }
 

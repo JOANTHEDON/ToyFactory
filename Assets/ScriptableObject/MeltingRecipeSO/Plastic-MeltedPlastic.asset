@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MeltingRecipeSO
   input: {fileID: 11400000, guid: 41d1a0de44652274e995d8ce1634e814, type: 2}
   output: {fileID: 11400000, guid: 436b84b51c4ea7441bf870902dcfea23, type: 2}
+  holderOutput: {fileID: 11400000, guid: ef936657ca68edc4ca2fd486dce1551b, type: 2}
   meltingProgressMax: 5

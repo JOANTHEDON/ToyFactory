@@ -33,20 +33,34 @@ public class Player : MonoBehaviour, IToyObjectParent {
     }
 
     private void GameInput_OnInteractAlternateAction(object sender, EventArgs e) {
+        if (GamePause.IsPaused) return;
         if (selectedCounter != null) {
             selectedCounter.InteractAlternate(this);
         }
     }
 
     private void GameInput_OnInteractAction(object sender, System.EventArgs e) {
+        if (GamePause.IsPaused) return;
         if (selectedCounter != null) {
             selectedCounter.Interact(this);
         }
     }
 
     private void Update() {
+        if (GamePause.IsPaused) {
+            isWalking = false;
+            return;
+        }
         HandleMovement();
         HandleInteractions();
+    }
+
+    private void OnDestroy() {
+        if (Instance == this) Instance = null;
+    }
+
+    public BaseCounter GetSelectedCounter() {
+        return selectedCounter;
     }
 
     public bool IsWalking() {
@@ -65,17 +79,15 @@ public class Player : MonoBehaviour, IToyObjectParent {
 
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask)) {
             if (raycastHit.transform.TryGetComponent(out BaseCounter baseCounter)) {
-                //Has Clear Counter
                 if (baseCounter != selectedCounter) {
                     SetSelectedCounter(baseCounter);
-                } else {
-                    SetSelectedCounter(null);
                 }
+            } else {
+                SetSelectedCounter(null);
             }
         } else {
             SetSelectedCounter(null);
         }
-        Debug.Log(selectedCounter);
     }
     private void HandleMovement() {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
@@ -119,7 +131,9 @@ public class Player : MonoBehaviour, IToyObjectParent {
 
         isWalking = moveDir != Vector3.zero;
         float rotateSpeed = 10f;
-        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
+        if (isWalking) {
+            transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
+        }
 
     }
 

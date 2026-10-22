@@ -16,10 +16,16 @@ public class ContainerCounter : BaseCounter {
         }
     }
 
+    public override string GetInteractHint(Player player) {
+        if (player.HasToyObject()) return null;
+        return "Take " + ToyObjectSO.GetDisplayName(toyObjectSO);
+    }
+
+    public override string GetStationName() {
+        return ToyObjectSO.GetDisplayName(toyObjectSO) + " Container";
+    }
+
     public ToyObjectSO GetToyObjectSO() {
         return toyObjectSO;
     }
 }
-
-
-

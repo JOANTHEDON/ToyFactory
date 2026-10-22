@@ -15,7 +15,7 @@ public class WoodCounter : BaseCounter, IHasProgress {
     [SerializeField] private CuttingRecipeSO[] cuttingRecipeSOArray;
     [SerializeField] private Transform startPoint;
     [SerializeField] private Transform endPoint;
-    [SerializeField] private ParticleSystem particleSystem;
+    [SerializeField] private new ParticleSystem particleSystem;
 
     private State state;
     private float cuttingTimer;
@@ -78,7 +78,6 @@ public class WoodCounter : BaseCounter, IHasProgress {
                     break;
 
             }
-            Debug.Log(state);
         }
 
 
@@ -115,6 +114,10 @@ public class WoodCounter : BaseCounter, IHasProgress {
                 //player is carrying something
             } else {
                 //Player is not carrying anything
+                if (state == State.Cutting) {
+                    // Wait for the cut to finish
+                    return;
+                }
                 GetToyObject().SetToyObjectParent(player);
 
                 state = State.Idle;
@@ -129,6 +132,31 @@ public class WoodCounter : BaseCounter, IHasProgress {
             }
         }
     }
+    public override string GetInteractHint(Player player) {
+        if (!HasToyObject()) {
+            if (player.HasToyObject() && HasRecipeWithInput(player.GetToyObject().GetToyObjectSO())) {
+                return "Cut " + ToyObjectSO.GetDisplayName(player.GetToyObject().GetToyObjectSO());
+            }
+            return null;
+        }
+        if (player.HasToyObject()) return null;
+        if (state == State.Cutting) return null;
+        return "Pick up " + ToyObjectSO.GetDisplayName(GetToyObject().GetToyObjectSO());
+    }
+
+    public override string GetBusyHint() {
+        if (HasToyObject() && state == State.Cutting) return "Cutting...";
+        return null;
+    }
+
+    public override string GetStationName() {
+        return "Wood Cutter";
+    }
+
+    public CuttingRecipeSO[] GetCuttingRecipeSOArray() {
+        return cuttingRecipeSOArray;
+    }
+
     private ToyObjectSO GetOutputForInput(ToyObjectSO inputToyObjectSO) {
         CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(inputToyObjectSO);
         if (cuttingRecipeSO != null) {
@@ -143,8 +171,9 @@ public class WoodCounter : BaseCounter, IHasProgress {
     }
 
     private CuttingRecipeSO GetCuttingRecipeSOWithInput(ToyObjectSO inputToyObjectSO) {
+        if (cuttingRecipeSOArray == null) return null;
         foreach (CuttingRecipeSO cuttingRecipeSO in cuttingRecipeSOArray) {
-            if (cuttingRecipeSO.input == inputToyObjectSO) {
+            if (cuttingRecipeSO != null && cuttingRecipeSO.input == inputToyObjectSO) {
                 return cuttingRecipeSO;
             }
         }

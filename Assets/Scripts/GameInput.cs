@@ -1,16 +1,18 @@
-
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GameInput : MonoBehaviour {
 
+    public static GameInput Instance { get; private set; }
+
     public event EventHandler OnInteractAction;
     public event EventHandler OnInteractAlternateAction;
     private PlayerInputActions playerInputActions;
-
+    private Vector2 virtualMovementVector = Vector2.zero;
 
     private void Awake() {
+        Instance = this;
         playerInputActions = new PlayerInputActions();
 
         playerInputActions.Player.Interact.performed += Interact_performed;
@@ -18,12 +20,23 @@ public class GameInput : MonoBehaviour {
     }
 
     private void InteractAlternate_performed(InputAction.CallbackContext context) {
-        OnInteractAlternateAction?.Invoke(this, EventArgs.Empty);
+        TriggerInteractAlternateAction();
     }
 
     private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
-        OnInteractAction?.Invoke(this, EventArgs.Empty);
+        TriggerInteractAction();
+    }
 
+    public void TriggerInteractAction() {
+        OnInteractAction?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void TriggerInteractAlternateAction() {
+        OnInteractAlternateAction?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void SetVirtualMovementVector(Vector2 vector) {
+        virtualMovementVector = vector;
     }
 
     private void OnEnable() {
@@ -40,6 +53,10 @@ public class GameInput : MonoBehaviour {
     }
 
     public Vector2 GetMovementVectorNormalized() {
+        if (virtualMovementVector != Vector2.zero) {
+            return virtualMovementVector.normalized;
+        }
+
         if (playerInputActions == null)
             return Vector2.zero;
 

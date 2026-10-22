@@ -23,5 +23,7 @@ public class ClearCounter : BaseCounter {
         }
     }
 
-
+    public override string GetStationName() {
+        return "Table";
+    }
 }

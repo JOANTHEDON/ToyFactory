@@ -14,7 +14,7 @@ public class ColorCounter : BaseCounter, IHasProgress {
     [SerializeField] private float coloringTimerMax = 4f;
     [SerializeField] private Transform startPoint;
     [SerializeField] private Transform endPoint;
-    [SerializeField] private ParticleSystem particleSystem;
+    [SerializeField] private new ParticleSystem particleSystem;
 
     private State state;
     private float coloringTimer;
@@ -106,6 +106,10 @@ public class ColorCounter : BaseCounter, IHasProgress {
             if (player.HasToyObject()) {
                 // Player is carrying something: cannot pick up
             } else {
+                if (state == State.Coloring) {
+                    // Wait for the paint to dry
+                    return;
+                }
                 // Player picks up the ToyObject
                 GetToyObject().SetToyObjectParent(player);
 
@@ -121,6 +125,31 @@ public class ColorCounter : BaseCounter, IHasProgress {
                 });
             }
         }
+    }
+
+    public override string GetInteractHint(Player player) {
+        if (!HasToyObject()) {
+            if (player.HasToyObject() && CanColor(player.GetToyObject())) {
+                return "Paint " + ToyObjectSO.GetDisplayName(player.GetToyObject().GetToyObjectSO());
+            }
+            return null;
+        }
+        if (player.HasToyObject()) return null;
+        if (state == State.Coloring) return null;
+        return "Pick up " + ToyObjectSO.GetDisplayName(GetToyObject().GetToyObjectSO());
+    }
+
+    public override string GetBusyHint() {
+        if (HasToyObject() && state == State.Coloring) return "Painting...";
+        return null;
+    }
+
+    public override string GetStationName() {
+        return "Paint Station";
+    }
+
+    public float GetColoringTimerMax() {
+        return coloringTimerMax;
     }
 
     public bool CanColor(ToyObject toyObject) {

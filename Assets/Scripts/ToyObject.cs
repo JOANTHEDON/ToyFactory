@@ -1,6 +1,13 @@
+using System;
 using UnityEngine;
 
 public class ToyObject : MonoBehaviour {
+
+    /// <summary>Fired whenever any toy object is parented to the player (taken from a container, picked up from a counter...).</summary>
+    public static event EventHandler OnAnyObjectPickedUp;
+    /// <summary>Fired whenever any toy object is placed on a counter.</summary>
+    public static event EventHandler OnAnyObjectPlaced;
+
     [SerializeField] private ToyObjectSO toyObjectSO;
     [SerializeField] private Material originalMaterial;
 
@@ -44,16 +51,12 @@ public class ToyObject : MonoBehaviour {
 
     public void SetToyObjectParent(IToyObjectParent toyObjectParent) {
         if (toyObjectParent == null) {
-            //toyObjectParent.SetToyObjectParent(this);
-
             return;
         }
         if (this.toyObjectParent != null) {
             this.toyObjectParent.ClearToyObject();
         }
 
-
-        //this.toyObjectParent = toyObjectParent;
         if (toyObjectParent.HasToyObject()) {
             Debug.LogError("Counter already has a ToyObject");
         }
@@ -63,6 +66,12 @@ public class ToyObject : MonoBehaviour {
 
         transform.parent = toyObjectParent.GetToyObjectFollowTransform();
         transform.localPosition = Vector3.zero;
+
+        if (toyObjectParent is Player) {
+            OnAnyObjectPickedUp?.Invoke(this, EventArgs.Empty);
+        } else {
+            OnAnyObjectPlaced?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public IToyObjectParent GetToyObjectParent() {
@@ -70,7 +79,9 @@ public class ToyObject : MonoBehaviour {
     }
 
     public void DestroySelf() {
-        toyObjectParent.ClearToyObject();
+        if (toyObjectParent != null) {
+            toyObjectParent.ClearToyObject();
+        }
         Destroy(gameObject);
     }
     public static ToyObject SpawnToyObject(ToyObjectSO toyObjectSO, IToyObjectParent toyObjectParent) {
@@ -79,5 +90,10 @@ public class ToyObject : MonoBehaviour {
         toyObject.SetToyObjectParent(toyObjectParent);
 
         return toyObject;
+    }
+
+    public static void ResetStaticData() {
+        OnAnyObjectPickedUp = null;
+        OnAnyObjectPlaced = null;
     }
 }

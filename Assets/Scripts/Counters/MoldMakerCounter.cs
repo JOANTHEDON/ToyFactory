@@ -19,7 +19,7 @@ public class MoldMakerCounter : BaseCounter, IHasProgress {
     [SerializeField] private MoldingRecipeSO[] moldingRecipeSOArray;
     [SerializeField] private Transform startPoint;
     [SerializeField] private Transform endPoint;
-    [SerializeField] private ParticleSystem particleSystem;
+    [SerializeField] private new ParticleSystem particleSystem;
 
     private State state;
     private float moldingTimer;
@@ -179,6 +179,34 @@ public class MoldMakerCounter : BaseCounter, IHasProgress {
 
     public State GetState() {
         return state;
+    }
+
+    public override string GetInteractHint(Player player) {
+        if (!HasToyObject()) {
+            if (player.HasToyObject() && HasRecipeWithInput(player.GetToyObject().GetToyObjectSO())) {
+                return "Pour " + ToyObjectSO.GetDisplayName(player.GetToyObject().GetToyObjectSO()) + " into mold";
+            }
+            return null;
+        }
+        if (player.HasToyObject()) return null;
+        switch (state) {
+            case State.ChoosingRecipe: return "Choose a toy";
+            case State.Molding: return null;
+            default: return "Pick up " + ToyObjectSO.GetDisplayName(GetToyObject().GetToyObjectSO());
+        }
+    }
+
+    public override string GetBusyHint() {
+        if (HasToyObject() && state == State.Molding) return "Molding...";
+        return null;
+    }
+
+    public override string GetStationName() {
+        return "Mold Maker";
+    }
+
+    public MoldingRecipeSO[] GetMoldingRecipeSOArray() {
+        return moldingRecipeSOArray;
     }
 
     public MoldingRecipeSO GetActiveRecipeSO() {

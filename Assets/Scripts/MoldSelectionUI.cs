@@ -6,6 +6,7 @@ using TMPro;
 public class MoldSelectionUI : MonoBehaviour {
 
     [SerializeField] private MoldMakerCounter moldMakerCounter;
+    [SerializeField] private WoodShaperCounter woodShaperCounter;
     [SerializeField] private Transform optionsContainer;
     [SerializeField] private Transform optionTemplateButton;
 
@@ -26,25 +27,43 @@ public class MoldSelectionUI : MonoBehaviour {
             moldMakerCounter.OnMoldingStateChanged += MoldMakerCounter_OnMoldingStateChanged;
         }
 
+        if (woodShaperCounter == null) {
+            woodShaperCounter = WoodShaperCounter.Instance;
+        }
+
+        if (woodShaperCounter != null) {
+            woodShaperCounter.OnShapingStateChanged += WoodShaperCounter_OnShapingStateChanged;
+        }
+
         Hide();
     }
 
     private void MoldMakerCounter_OnMoldingStateChanged(object sender, MoldMakerCounter.OnMoldingStateChangedEventArgs e) {
         if (e.state == MoldMakerCounter.State.ChoosingRecipe) {
-            UpdateMenu();
+            UpdateMenuForMoldMaker();
             Show();
         } else {
             Hide();
         }
     }
 
-    private void UpdateMenu() {
+    private void WoodShaperCounter_OnShapingStateChanged(object sender, WoodShaperCounter.OnShapingStateChangedEventArgs e) {
+        if (e.state == WoodShaperCounter.State.ChoosingRecipe) {
+            UpdateMenuForWoodShaper();
+            Show();
+        } else {
+            Hide();
+        }
+    }
+
+    private void UpdateMenuForMoldMaker() {
         // Clear previous buttons
         foreach (GameObject btn in spawnedButtonsList) {
             Destroy(btn);
         }
         spawnedButtonsList.Clear();
 
+        if (moldMakerCounter == null) return;
         MoldingRecipeSO activeRecipeSO = moldMakerCounter.GetActiveRecipeSO();
         if (activeRecipeSO == null || activeRecipeSO.availableOutputs == null) {
             return;
@@ -109,6 +128,80 @@ public class MoldSelectionUI : MonoBehaviour {
         }
     }
 
+    private void UpdateMenuForWoodShaper() {
+        // Clear previous buttons
+        foreach (GameObject btn in spawnedButtonsList) {
+            Destroy(btn);
+        }
+        spawnedButtonsList.Clear();
+
+        WoodShaperCounter shaper = woodShaperCounter != null ? woodShaperCounter : WoodShaperCounter.Instance;
+        if (shaper == null) return;
+
+        MoldingRecipeSO activeRecipeSO = shaper.GetActiveRecipeSO();
+        if (activeRecipeSO == null || activeRecipeSO.availableOutputs == null) {
+            return;
+        }
+
+        // Dynamically instantiate button for each available output toy
+        foreach (ToyObjectSO outputSO in activeRecipeSO.availableOutputs) {
+            if (outputSO == null) continue;
+
+            Transform buttonTransform = Instantiate(optionTemplateButton, optionsContainer);
+            buttonTransform.gameObject.SetActive(true);
+            spawnedButtonsList.Add(buttonTransform.gameObject);
+
+            // Set button label if Text or TextMeshProUGUI is found
+            string displayName = !string.IsNullOrEmpty(outputSO.objectName) ? outputSO.objectName : outputSO.name;
+
+            TextMeshProUGUI tmpText = buttonTransform.GetComponentInChildren<TextMeshProUGUI>(true);
+            if (tmpText != null) {
+                tmpText.text = displayName;
+            } else {
+                Text legacyText = buttonTransform.GetComponentInChildren<Text>(true);
+                if (legacyText != null) {
+                    legacyText.text = displayName;
+                }
+            }
+
+            // Set icon image if available
+            Image iconImage = null;
+            Transform iconTransform = buttonTransform.Find("icon") ?? buttonTransform.Find("Icon");
+            if (iconTransform != null) {
+                iconImage = iconTransform.GetComponent<Image>();
+            } else {
+                // Find an Image in children that is not the button's own targetGraphic / background
+                Image buttonImage = buttonTransform.GetComponent<Image>();
+                Image[] allChildImages = buttonTransform.GetComponentsInChildren<Image>(true);
+                foreach (Image img in allChildImages) {
+                    if (img != buttonImage) {
+                        iconImage = img;
+                        break;
+                    }
+                }
+            }
+
+            if (iconImage != null) {
+                if (outputSO.sprite != null) {
+                    iconImage.sprite = outputSO.sprite;
+                    iconImage.gameObject.SetActive(true);
+                } else {
+                    iconImage.gameObject.SetActive(false);
+                }
+            }
+
+            // Hook up onClick
+            Button button = buttonTransform.GetComponent<Button>();
+            if (button != null) {
+                ToyObjectSO capturedOutput = outputSO;
+                button.onClick.AddListener(() => {
+                    shaper.SelectOutput(capturedOutput);
+                    Hide();
+                });
+            }
+        }
+    }
+
     public void Show() {
         gameObject.SetActive(true);
     }
@@ -120,6 +213,9 @@ public class MoldSelectionUI : MonoBehaviour {
     private void OnDestroy() {
         if (moldMakerCounter != null) {
             moldMakerCounter.OnMoldingStateChanged -= MoldMakerCounter_OnMoldingStateChanged;
+        }
+        if (woodShaperCounter != null) {
+            woodShaperCounter.OnShapingStateChanged -= WoodShaperCounter_OnShapingStateChanged;
         }
     }
 }

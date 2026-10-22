@@ -3,10 +3,12 @@ using UnityEngine;
 public class MelterCounter : BaseCounter, IHasProgress {
 
     public event EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
+    public static event EventHandler OnAnyMeltHit;
+
     [SerializeField] private MeltingRecipeSO[] meltingRecipeSOArray;
     [SerializeField] private Transform startPoint;
     [SerializeField] private Transform endPoint;
-    [SerializeField] private ParticleSystem particleSystem;
+    [SerializeField] private new ParticleSystem particleSystem;
 
     private int meltingProgress;
     private bool isMelted;
@@ -87,6 +89,8 @@ public class MelterCounter : BaseCounter, IHasProgress {
                 particleSystem.Play();
             }
 
+            OnAnyMeltHit?.Invoke(this, EventArgs.Empty);
+
             OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs {
                 progressNormalized = (float)meltingProgress / meltingRecipeSO.meltingProgressMax
             });
@@ -109,6 +113,42 @@ public class MelterCounter : BaseCounter, IHasProgress {
         }
     }
 
+    public override string GetInteractHint(Player player) {
+        if (!HasToyObject()) {
+            if (player.HasToyObject() && HasRecipeWithInput(player.GetToyObject().GetToyObjectSO())) {
+                return "Put " + ToyObjectSO.GetDisplayName(player.GetToyObject().GetToyObjectSO()) + " in melter";
+            }
+            return null;
+        }
+        if (player.HasToyObject()) return null;
+        if (isMelted) {
+            MeltingRecipeSO recipe = GetMeltingRecipeSOWithOutput(GetToyObject().GetToyObjectSO());
+            if (recipe != null && recipe.holderOutput != null) {
+                return "Scoop into " + ToyObjectSO.GetDisplayName(recipe.holderOutput);
+            }
+        }
+        return "Pick up " + ToyObjectSO.GetDisplayName(GetToyObject().GetToyObjectSO());
+    }
+
+    public override string GetInteractAlternateHint(Player player) {
+        if (!HasToyObject() || isMelted) return null;
+        MeltingRecipeSO recipe = GetMeltingRecipeSOWithInput(GetToyObject().GetToyObjectSO());
+        if (recipe == null) return null;
+        return "Melt (" + meltingProgress + "/" + recipe.meltingProgressMax + ")";
+    }
+
+    public override string GetStationName() {
+        return "Melter";
+    }
+
+    public MeltingRecipeSO[] GetMeltingRecipeSOArray() {
+        return meltingRecipeSOArray;
+    }
+
+    public bool IsMelted() {
+        return isMelted;
+    }
+
     private ToyObjectSO GetOutputForInput(ToyObjectSO inputToyObjectSO) {
         MeltingRecipeSO meltingRecipeSO = GetMeltingRecipeSOWithInput(inputToyObjectSO);
         if (meltingRecipeSO != null) {
@@ -123,8 +163,9 @@ public class MelterCounter : BaseCounter, IHasProgress {
     }
 
     private MeltingRecipeSO GetMeltingRecipeSOWithInput(ToyObjectSO inputToyObjectSO) {
+        if (meltingRecipeSOArray == null) return null;
         foreach (MeltingRecipeSO meltingRecipeSO in meltingRecipeSOArray) {
-            if (meltingRecipeSO.input == inputToyObjectSO) {
+            if (meltingRecipeSO != null && meltingRecipeSO.input == inputToyObjectSO) {
                 return meltingRecipeSO;
             }
         }
@@ -132,11 +173,16 @@ public class MelterCounter : BaseCounter, IHasProgress {
     }
 
     private MeltingRecipeSO GetMeltingRecipeSOWithOutput(ToyObjectSO outputToyObjectSO) {
+        if (meltingRecipeSOArray == null) return null;
         foreach (MeltingRecipeSO meltingRecipeSO in meltingRecipeSOArray) {
-            if (meltingRecipeSO.output == outputToyObjectSO) {
+            if (meltingRecipeSO != null && meltingRecipeSO.output == outputToyObjectSO) {
                 return meltingRecipeSO;
             }
         }
         return null;
+    }
+
+    public static void ResetStaticData() {
+        OnAnyMeltHit = null;
     }
 }

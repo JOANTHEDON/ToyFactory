@@ -49,15 +49,21 @@ public class OrderItemUI : MonoBehaviour {
         if (chromeBuilt) return;
         chromeBuilt = true;
 
-        // Flat cream card with a soft outline (the ornate panel sprite does not survive at 150px)
+        // Flat cream card with a soft outline and drop shadow
         Image cardImage = GetComponent<Image>();
         if (cardImage != null) {
             cardImage.sprite = UIResources.White;
             cardImage.type = Image.Type.Simple;
-            cardImage.color = new Color(UIFactory.Brown.r, UIFactory.Brown.g, UIFactory.Brown.b, 0.55f);
+            cardImage.color = new Color(UIFactory.Brown.r, UIFactory.Brown.g, UIFactory.Brown.b, 0.85f);
+
             Image fill = UIFactory.CreateImage("Fill", transform, UIResources.White, UIFactory.Cream, Image.Type.Simple, false);
             UIFactory.Stretch(fill.rectTransform, 3f, 3f, 3f, 3f);
             fill.transform.SetAsFirstSibling();
+
+            // Inner icon frame to give depth and highlight
+            Image iconBg = UIFactory.CreateImage("IconBg", fill.transform, UIResources.White, new Color(1f, 1f, 1f, 0.95f), Image.Type.Simple, false);
+            UIFactory.Anchor(iconBg.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 14f), new Vector2(88f, 88f));
+            iconBg.transform.SetAsFirstSibling();
         }
 
         // Queue number badge, top-left

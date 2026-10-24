@@ -25,6 +25,11 @@ public class InteractionPromptUI : MonoBehaviour {
     private Camera mainCamera;
 
     private void Awake() {
+        // Ensure OrderNavigationUI is active on the Canvas to guide first 4 orders
+        if (OrderNavigationUI.Instance == null && transform.parent != null) {
+            transform.parent.gameObject.AddComponent<OrderNavigationUI>();
+        }
+
         Canvas canvas = GetComponentInParent<Canvas>();
         canvasRect = canvas != null ? canvas.GetComponent<RectTransform>() : null;
 

@@ -14,39 +14,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 1.01
   subtype: kitchenchaos
-  lastShownTimestamp: 1792562482
+  lastShownTimestamp: 1792769380
   lastUpdateResponse:
     version: 1.01
     versionUrl: https://unitycodemonkey.com
-  checkedLastUpdateTimestamp: 1792562482
+  checkedLastUpdateTimestamp: 1792769380
   lastQOTDResponse:
-    questionId: 354
-    questionText: When you create a new script, do you always have to extend MonoBehaviour?
+    questionId: 355
+    questionText: 'Is this valid code?
+
+      <p>string state = (health &gt; 0) ?
+      "ALIVE" : "DEAD";</p>'
     answerA: Yes
     answerB: No
-    answerC: Only if you want to use it as a Game Object Component
+    answerC: 
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1792562482
+  lastQotdTimestamp: 1792769380
   lastDynamicHeaderResponse:
     topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/humbleSep26Synty.png
     topText: AWESOME Synty Asset with THOUSANDS of great assets!
     topLink: humblebundle
     bottomText: My 10+ Years of C# Knowledge in 1 Course!
     bottomLink: csharpcourse
-  lastDynamicHeaderTimestamp: 1792562482
+  lastDynamicHeaderTimestamp: 1792769380
   websiteLatestMessage:
     text: <a href="https://cmonkey.co/freecourses">Check out all my FREE courses!
       Click here!</a>
-  websiteLatestMessageTimestamp: 1792562482
+  websiteLatestMessageTimestamp: 1792769380
   websiteLatestVideos:
     videos:
+    - youTubeId: H05_7PBPbzQ
+      title: TOP 10 NEW Games, Made with Unity! (SEPTEMBER 2026)
+    - youTubeId: zqxQ7PAeNN4
+      title: Unity is FINALLY moving to ONE Render Pipeline!
     - youTubeId: qjNGL4qQvrQ
       title: TOP 10 FREE NEW Assets OCTOBER 2026!
     - youTubeId: HD1wNUTZ0_Y
       title: Sell 25,000 copies in 24 HOURS? Steam's Update EXPLAINED!
-    - youTubeId: OzldphY8pTs
-      title: THIS is why your game looks TERRIBLE!
-    - youTubeId: o4WEUv31JOc
-      title: If your code is HORRIBLE watch this!
-  websiteLatestVideosTimestamp: 1792562482
+  websiteLatestVideosTimestamp: 1792769380

@@ -64,6 +64,13 @@ public static class GameSettings {
     }
 
     public static void ApplyOnStartup() {
+        // Enforce landscape orientation across all platforms and devices
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+        Screen.autorotateToLandscapeLeft = true;
+        Screen.autorotateToLandscapeRight = true;
+        Screen.autorotateToPortrait = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+
         if (PlayerPrefs.HasKey(QUALITY_KEY)) {
             int level = Mathf.Clamp(PlayerPrefs.GetInt(QUALITY_KEY), 0, Mathf.Max(0, QualitySettings.names.Length - 1));
             if (level != QualitySettings.GetQualityLevel()) {

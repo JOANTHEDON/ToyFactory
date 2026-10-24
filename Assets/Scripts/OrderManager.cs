@@ -55,6 +55,8 @@ public class OrderManager : MonoBehaviour {
     [Header("Patience")]
     [Tooltip("Seconds a customer waits before leaving angry.")]
     [SerializeField] private float orderTimeMax = 110f;
+    [Tooltip("Patience multiplier for the first 4 tutorial orders so player has ample time to complete them.")]
+    [SerializeField] private float tutorialOrderTimeMultiplier = 2.5f;
 
     [Header("Scoring")]
     [SerializeField] private int rewardPerOrder = 100;
@@ -107,10 +109,15 @@ public class OrderManager : MonoBehaviour {
             }
         }
 
-        // Tick patience timers
+        // Tick patience timers (time slows down during tutorial orders so player can complete them comfortably)
+        float patienceDelta = deltaTime;
+        if (deliveredCount < 4) {
+            patienceDelta *= 0.4f; // 2.5x slower patience drain during first 4 orders
+        }
+
         for (int i = activeOrderList.Count - 1; i >= 0; i--) {
             Order order = activeOrderList[i];
-            order.timeRemaining -= deltaTime;
+            order.timeRemaining -= patienceDelta;
             if (order.timeRemaining <= 0f) {
                 order.timeRemaining = 0f;
                 activeOrderList.RemoveAt(i);
@@ -126,11 +133,16 @@ public class OrderManager : MonoBehaviour {
         ToyObjectSO toy = PickNextToy();
         if (toy == null) return;
 
+        float effectiveTimeMax = orderTimeMax;
+        if (deliveredCount < 4) {
+            effectiveTimeMax *= tutorialOrderTimeMultiplier;
+        }
+
         Order order = new Order {
             id = nextOrderId++,
             toyObjectSO = toy,
-            timeMax = orderTimeMax,
-            timeRemaining = orderTimeMax,
+            timeMax = effectiveTimeMax,
+            timeRemaining = effectiveTimeMax,
         };
         activeOrderList.Add(order);
         lastSpawnedToy = toy;
